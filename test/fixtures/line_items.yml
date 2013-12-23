@@ -21,3 +21,16 @@ o2_ruby:
   cart_id: 2
   quantity: 1
   price: 49.95
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  product: ruby
+#START_HIGHLIGHT
+  order: one
+#END_HIGHLIGHT
+
+two:
+  product: ruby
+  cart: one
+

@@ -1,5 +1,5 @@
 #---
-C
+# Excerpted from "Agile Web Development with Rails",
 # published by The Pragmatic Bookshelf.
 # Copyrights apply to this code. It may not be used to create training material, 
 # courses, books, articles, and the like. Contact us if you are in doubt.
@@ -8,15 +8,15 @@ C
 #---
 require 'test_helper'
 
-class CartsControllerTest < ActionController::TestCase
+class OrdersControllerTest < ActionController::TestCase
   setup do
-    @cart = carts(:one)
+    @order = orders(:one)
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:carts)
+    assert_not_nil assigns(:orders)
   end
 
   test "requires item in cart" do
@@ -31,47 +31,41 @@ class CartsControllerTest < ActionController::TestCase
     item.product = products(:ruby)
     item.save!
     session[:cart_id] = item.cart.id
+
     get :new
     assert_response :success
   end
 
   test "should create order" do
     assert_difference('Order.count') do
-      post :create, order: { address: @order.address, email: @order.email, name: @order.name, pay_type: @order.pay_type}
-    end
-    assert_redirected_to order_path(assigns(:order))
-  end
-
-  test "should create cart" do
-    assert_difference('Cart.count') do
-      post :create, cart: {  }
+      post :create, order: { address: @order.address, email: @order.email,
+        name: @order.name, pay_type: @order.pay_type }
     end
 
-    assert_redirected_to cart_path(assigns(:cart))
+    assert_redirected_to store_path
   end
 
-  test "should show cart" do
-    get :show, id: @cart
+  test "should show order" do
+    get :show, id: @order
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @cart
+    get :edit, id: @order
     assert_response :success
   end
 
-  test "should update cart" do
-    patch :update, id: @cart, cart: {  }
-    assert_redirected_to cart_path(assigns(:cart))
+  test "should update order" do
+    patch :update, id: @order, order: { address: @order.address, email: @order.email, name: @order.name, pay_type: @order.pay_type }
+    assert_redirected_to order_path(assigns(:order))
   end
 
-  test "should destroy cart" do
-    assert_difference('Cart.count', -1) do
-      session[:cart_id] = @cart.id
-      delete :destroy, id: @cart
+  test "should destroy order" do
+    assert_difference('Order.count', -1) do
+      delete :destroy, id: @order
     end
 
-    assert_redirected_to store_path
+    assert_redirected_to orders_path
   end
 end
 
